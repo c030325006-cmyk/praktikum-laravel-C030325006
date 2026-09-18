@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MatakuliahController;
+use App\Http\Controllers\AkademikController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,3 +18,5 @@ Route::get('/matakuliah/create', [MatakuliahController::class, 'create']);
 
 Route::post('/matakuliah', [MatakuliahController::class, 'store'])
     ->name('matakuliah.store');
+
+Route::get('/akademik', [AkademikController::class, 'index']);
