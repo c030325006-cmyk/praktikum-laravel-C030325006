@@ -14,6 +14,11 @@ class MatakuliahController extends Controller
         return view('matakuliah.index', compact('matakuliahs'));
     }
 
+    public function show(Matakuliah $matakuliah)
+    {
+        return view('matakuliah.show', compact('matakuliah'));
+    }
+
     public function create()
     {
         $dosens = \App\Models\User::all();

@@ -7,59 +7,40 @@ use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $mahasiswa = Mahasiswa::all();
+
+        return view('mahasiswa.index', compact('mahasiswa'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return 'create: form tambah mahasiswa';
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        return 'store: simpan data baru';
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Mahasiswa $mahasiswa)
+  public function show(Mahasiswa $mahasiswa)
+{
+    return view('mahasiswa.show', compact('mahasiswa'));
+}
+
+    public function edit($id)
     {
-        //
+        return "edit: form edit mahasiswa id {$id}";
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Mahasiswa $mahasiswa)
+    public function update(Request $request, $id)
     {
-        //
+        return "update: perbarui data id {$id}";
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Mahasiswa $mahasiswa)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Mahasiswa $mahasiswa)
-    {
-        //
+        return "destroy: hapus data id {$id}";
     }
 }

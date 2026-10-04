@@ -1,85 +1,78 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Mata Kuliah</title>
+@extends('layouts.app')
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f5f5f5;
-        }
+@section('title', 'Daftar Mata Kuliah')
 
-        h1 {
-            margin-bottom: 20px;
-        }
+@section('content')
 
-        a {
-            display: inline-block;
-            padding: 10px 15px;
-            margin-bottom: 20px;
-            background-color: #2563eb;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
+    <h1>Daftar Mata Kuliah</h1>
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: white;
-        }
+    <p>
+        <a href="{{ route('mahasiswa.index') }}">
+            Lihat Daftar Mahasiswa
+        </a>
+    </p>
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
+    <table border="1" cellpadding="8" cellspacing="0">
 
-        th {
-            background-color: #eee;
-        }
-    </style>
-</head>
-<body>
+        <tr>
+            <th>No</th>
+            <th>Kode</th>
+            <th>Nama Mata Kuliah</th>
+            <th>SKS</th>
+            <th>Semester</th>
+            <th>Keterangan</th>
+            <th>Posisi</th>
+            <th>Aksi</th>
+        </tr>
 
-    <h1>Data Mata Kuliah</h1>
+        @forelse ($matakuliahs as $mk)
 
-    <a href="/matakuliah/create">+ Tambah Mata Kuliah</a>
+        <tr>
+            <td>{{ $loop->iteration }}</td>
 
-    <table>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Kode MK</th>
-                <th>Nama Mata Kuliah</th>
-                <th>SKS</th>
-                <th>Semester</th>
-                <th>Dosen</th>
-            </tr>
-        </thead>
+            <td>{{ $mk->kode_mk }}</td>
 
-        <tbody>
-            @forelse ($matakuliahs as $matakuliah)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $matakuliah->kode_mk }}</td>
-                    <td>{{ $matakuliah->nama_mk }}</td>
-                    <td>{{ $matakuliah->sks }}</td>
-                    <td>{{ $matakuliah->semester }}</td>
-                    <td>
-                        {{ $matakuliah->dosen->name ?? 'Belum ada dosen' }}
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="6">Belum ada data mata kuliah.</td>
-                </tr>
-            @endforelse
-        </tbody>
+            <td>{{ $mk->nama_mk }}</td>
+
+            <td>{{ $mk->sks }}</td>
+
+            <td>{{ $mk->semester }}</td>
+
+            <td>
+                @if ($mk->sks > 3)
+                    <strong>SKS Besar</strong>
+                @else
+                    Normal
+                @endif
+            </td>
+
+            <td>
+                @if ($loop->first)
+                    Data Pertama
+                @elseif ($loop->last)
+                    Data Terakhir
+                @else
+                    Data Tengah
+                @endif
+            </td>
+
+            <td>
+                <a href="{{ route('matakuliah.show', $mk->id) }}">
+                    Lihat Detail
+                </a>
+            </td>
+        </tr>
+
+        @empty
+
+        <tr>
+            <td colspan="8">
+                Belum ada data mata kuliah.
+            </td>
+        </tr>
+
+        @endforelse
+
     </table>
 
-</body>
-</html>
+@endsection
